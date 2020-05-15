@@ -1,10 +1,25 @@
-import React, { Component } from "react";
+import React, { Component, useContext} from "react";
 import { Dimensions, StyleSheet, Text, View, ScrollView } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { findNameinJSON, findFullnameinJSON } from './../util';
 
 const { height, width } = Dimensions.get("window");
 
 export default class SearchScreen extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {searchText:"",
+    telBook: this.props.route.params.telBook,
+    }
+  }
+  state = {
+    searchText:"",
+    telBook:[]
+  }
+  componentDidMount() {
+    console.log(this.state.searchText);
+  }
+
   render() {
     return(
       <View style={styles.container}>
@@ -20,7 +35,10 @@ export default class SearchScreen extends Component{
                 autoCorrect={false}
                 onSubmitEditing={this._addToDo}
               /> */}
-              <TextInput  style={styles.input} placeholder={"검색"} />
+              <TextInput  style={styles.input} placeholder={"검색"} 
+              onChangeText={this._crontollNewToDo}
+              onSubmitEditing={this._search}
+              />
               <ScrollView contentContainerStyle={styles.toDos}>
                 {/* {Object.values(toDos).map(toDo => (
                   <ToDo
@@ -36,6 +54,18 @@ export default class SearchScreen extends Component{
             </View>    
         </View>
     );
+  }
+  _crontollNewToDo = text => {
+    this.setState({
+      searchText: text
+    });
+  }
+  _search = () => {
+    const searchValue = this.state.searchText;
+    if(searchValue.length == 0) return;
+    console.log(searchValue);
+    var findlist = findNameinJSON(this.state.telBook, searchValue, true);
+    console.log(findlist);
   }
 }
 
