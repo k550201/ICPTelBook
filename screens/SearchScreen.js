@@ -1,61 +1,62 @@
 import React, { Component, useContext} from "react";
 import { Dimensions, StyleSheet, Text, View, ScrollView } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { findNameinJSON, findFullnameinJSON } from './../util';
+import { findNameinJSON, findFullnameinJSON, departNameFromFullName, jobNameFromFullName } from './../util';
+import NameCard from "./NameCard";
 
 const { height, width } = Dimensions.get("window");
 
 export default class SearchScreen extends Component{
   constructor(props) {
     super(props);
-    this.state = {searchText:"",
-    telBook: this.props.route.params.telBook,
+    this.state = {
+      searchText:"",
+      telBook: this.props.route.params.telBook,
+      nameCards : []
     }
   }
   state = {
     searchText:"",
-    telBook:[]
-  }
+    telBook:[],
+    nameCards : []
+  };
+
   componentDidMount() {
     console.log(this.state.searchText);
-  }
+  };
 
   render() {
-    return(
+    const { searchText, nameCards } = this.state;
+    console.log(Array.isArray(nameCards));
+    return( 
       <View style={styles.container}>
             <Text style={styles.title}></Text>
             <View style={styles.card}>
-              {/* <TextInput
-                style={styles.input}
-                placeholder={"New To Do"}
-                value={newToDo}
-                onChangeText={this._crontollNewToDo}
-                placeholderTextColor={"#999"}
-                returnKeyType={"done"}
-                autoCorrect={false}
-                onSubmitEditing={this._addToDo}
-              /> */}
               <TextInput  style={styles.input} placeholder={"검색"} 
-              onChangeText={this._crontollNewToDo}
+              onChangeText={this._contollSearch}
               onSubmitEditing={this._search}
               />
               <ScrollView contentContainerStyle={styles.toDos}>
-                {/* {Object.values(toDos).map(toDo => (
-                  <ToDo
-                    key={toDo.id}
-                    deleteToDo={this._deleteToDo}
-                    uncompleteToDo={this._uncompleteToDo}
-                    completeToDo={this._completeToDo}
-                    updateToDo={this._updateToDo}
-                    {...toDo}
-                  />
-                ))} */}
+                {nameCards.map(nameCard => (
+                  // console.log(nameCard)
+                  <NameCard 
+                    key = {nameCard.id} 
+                    // {...nameCard}
+                    id = {nameCard.id} 
+                    jobname = {nameCard.jobname}
+                    departname ={nameCard.departname}
+                    pt = {nameCard.pt}
+                    rt = {nameCard.rt}
+                    isFavorite = {false}
+                    /> 
+                ))
+                }
               </ScrollView>
             </View>    
         </View>
     );
   }
-  _crontollNewToDo = text => {
+  _contollSearch = text => {
     this.setState({
       searchText: text
     });
@@ -63,9 +64,29 @@ export default class SearchScreen extends Component{
   _search = () => {
     const searchValue = this.state.searchText;
     if(searchValue.length == 0) return;
-    console.log(searchValue);
+    this.setState({nameCards:[]});
     var findlist = findNameinJSON(this.state.telBook, searchValue, true);
-    console.log(findlist);
+    for (var i = 0; i < findlist.length; i++) {
+      const fullName = findFullnameinJSON(this.state.telBook, findlist[i].id);
+      const departName = departNameFromFullName(fullName);
+      const nameCard = {
+        id: findlist[i].id,
+        jobname: findlist[i].name,
+        departname: departName,
+        pt: findlist[i].pt,
+        rt: findlist[i].rt,
+      };
+
+      this.setState(prevState => {
+        const newNameCards = prevState.nameCards.push(nameCard);
+        return {
+          newNameCards
+        }
+      }
+      );
+    }
+    // console.log(this.state.nameCards);
+    
   }
 }
 

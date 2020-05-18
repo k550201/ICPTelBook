@@ -45,9 +45,23 @@ export function findNameinJSON(obj, findString, bStart) {
             }
         } else {
             if (obj.NAME.indexOf(findString) > -1)
-                results.push(obj.ID)
+            {
+                const nameCard = {id:obj.ID, name:obj.NAME, pt:obj.PT, rt:obj.RT};
+                results.push(nameCard);
+            }
+                
         }
     }
 
     return results;
+}
+
+export function jobNameFromFullName(fullName){
+    const res = fullName.split(" ");
+    return res[res.length - 1];
+}
+
+export function departNameFromFullName(fullName){
+    const departName = fullName.replace(jobNameFromFullName(fullName),'');
+    return departName;
 }
