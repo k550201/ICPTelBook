@@ -62,6 +62,10 @@ export function jobNameFromFullName(fullName){
 }
 
 export function departNameFromFullName(fullName){
-    const departName = fullName.replace(jobNameFromFullName(fullName),'');
+    const res = fullName.split(" ");
+    var departName = "";
+    for(var i = 0; i < res.length - 1; i++){
+        departName = departName + " " + res[i];
+    }
     return departName;
 }

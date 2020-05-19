@@ -1,13 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export const OrganizationScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>OrganizationScreen</Text>
+export default class OrganizationScreen extends Component{
+
+  render() {
+    return(
+      <View style={styles.container}>
+      <Text>OrganizationScreen2</Text>
     </View>
-  );
-};
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

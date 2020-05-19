@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ICPTelBook",
+    "name": "인천경찰청 스마트전화번호부",
     "slug": "ICPTelBook",
     "platforms": [
       "ios",
@@ -9,7 +9,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

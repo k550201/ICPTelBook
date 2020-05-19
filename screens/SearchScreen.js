@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 10,
     fontWeight: "200",
-    marginBottom: 30,
+    marginBottom: 20,
     height:0
   },
   card: {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     })
   },
     input: {
-    padding: 20,
+    padding: 10,
     borderBottomColor: "#bbb",
     borderBottomWidth: 1,
     fontSize: 25

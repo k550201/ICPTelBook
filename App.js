@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SearchScreen from "./screens/SearchScreen";
-import {OrganizationScreen} from "./screens/OrganizationScreen";
+import OrganizationScreen from "./screens/OrganizationScreen";
 import {FavoriteScreen} from "./screens/FavoriteScreen";
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
@@ -10,6 +10,9 @@ import {
   faSitemap,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+
 
 const ICPTelBook = require('./ICPTelBook.json');
 
@@ -32,37 +35,46 @@ function MyTabs() {
             <FontAwesomeIcon icon={faSitemap}  color={color} size={26} />
           ),
         }}  />
-      <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
+      {/* <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
           tabBarLabel: '즐겨찾기',
           tabBarIcon: ({ color, size }) => (
             <FontAwesomeIcon icon={faStar}  color={color} size={26} />
           ),
-        }} />
+        }} /> */}
     </Tab.Navigator>
   );
 }
 
 export default class App extends React.Component {
-
-  // componentDidMount = () => {
-  //   const ICPTelBook = require('./ICPTelBook.json');
-  //   var listofFind = findNameinJSON(ICPTelBook, "경무");
-  //   console.log(listofFind);
-
-
-  //   for(var i = 0; i < listofFind.length; i++){
-  //     fullName = findFullnameinJSON(ICPTelBook, listofFind[i]);
-  //     console.log(fullName);
-  //   }
-
-  // }
- render() {
+  state = {
+    isReady: false,
+  };
+  
+  render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+        />
+      );
+    }
+    
     return (
       <NavigationContainer>
         <MyTabs />
       </NavigationContainer>
     );
   }
-  
+
+  _cacheResourcesAsync = async()=> {
+    const images = [require('./assets/splash.png')];
+
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    }); 
+    return Promise.all(cacheImages);
+  }  
 }
 

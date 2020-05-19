@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Dimensions, StyleSheet, Text, View, ScrollView } from "react-native";
+import { Dimensions, StyleSheet, Text, View, ScrollView, Linking , Alert } from "react-native";
 import PropTypes from "prop-types";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("window");
 export default class NameCard extends React.Component {
@@ -25,7 +26,22 @@ export default class NameCard extends React.Component {
         isFavorite: PropTypes.bool.isRequired
     };
 
-    
+    _call = event => {
+        const {jobname, rt} = this.state;
+        Alert.alert(
+            "전화하기",
+            `${rt}로 전화하시겠습니까?`,
+            [
+              {
+                text: "취소",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "전화하기", onPress: () => Linking.openURL(`tel:${rt}`) }
+            ],
+            { cancelable: false }
+          );
+    }    
     componentDidMount = () => {
         console.log(this.state.id);
     };
@@ -35,11 +51,13 @@ export default class NameCard extends React.Component {
         // const { isFavorite } = this.state;
         return( 
         <View  style={styles.container}>
-            <View style={styles.row}>
-                <Text style= {styles.jobname}>{this.state.jobname}</Text>
-                <Text style= {styles.pt}>☎️ : {this.state.pt}</Text>
+            <TouchableOpacity onPress={this._call}>
+                <View style={styles.row}>
+                    <Text style= {styles.jobname}>{this.state.jobname}</Text>
+                    <Text style= {styles.pt}>☎️ : {this.state.pt}</Text>
                 </View>
                 <Text style= {styles.departname}>{this.state.departname}</Text>
+            </TouchableOpacity>
         </View>
         );
     }
@@ -50,23 +68,26 @@ const styles = StyleSheet.create({
         width: width - 30,
         borderBottomColor: "#bbb",
         borderBottomWidth: StyleSheet.hairlineWidth,
-        // flexDirection: "row",
-        // alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        padding:5
+
       },
     row :{
         flexDirection: "row",
+        justifyContent:"space-between",
+        alignItems:"center",
+        
     },
     jobname:{
-        fontSize:30,
+        fontSize:25,
         fontWeight: "800",
     },
     departname:{
         textAlign:"right",
-        fontSize:13
+        fontSize:16
     },
     pt:{
         fontSize:20, 
-        textAlign:"right"
+        textAlign:"right",
     }
 });
