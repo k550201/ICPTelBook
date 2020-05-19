@@ -34,7 +34,7 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesomeIcon icon={faSitemap}  color={color} size={26} />
           ),
-        }}  />
+        }}  initialParams={{telBook:ICPTelBook}}   />
       {/* <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
           tabBarLabel: '즐겨찾기',
           tabBarIcon: ({ color, size }) => (

@@ -22,12 +22,12 @@ export default class SearchScreen extends Component{
   };
 
   componentDidMount() {
-    console.log(this.state.searchText);
+    // console.log(this.state.searchText);
   };
 
   render() {
     const { searchText, nameCards } = this.state;
-    console.log(Array.isArray(nameCards));
+    // console.log(Array.isArray(nameCards));
     return( 
       <View style={styles.container}>
             <Text style={styles.title}></Text>
@@ -36,7 +36,7 @@ export default class SearchScreen extends Component{
               onChangeText={this._contollSearch}
               onSubmitEditing={this._search}
               />
-              <ScrollView contentContainerStyle={styles.toDos}>
+              <ScrollView contentContainerStyle>
                 {nameCards.map(nameCard => (
                   // console.log(nameCard)
                   <NameCard 
