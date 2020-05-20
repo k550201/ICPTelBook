@@ -58,7 +58,6 @@ export default class TreeNode extends React.Component {
                           <TreeNode key = {childNode.ID} node={childNode} isCollapsed={false} />
                           ))
                     }
-
             </View>
         );
     }
