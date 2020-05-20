@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dimensions, StyleSheet, Text, View, ScrollView, Linking , Alert } from "react-native";
+import { Dimensions, StyleSheet, Text, View, Linking , Alert } from "react-native";
 import PropTypes from "prop-types";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get("window");
 export default class NameCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             id:props.id,
             jobname:props.jobname,
             departname:props.departname,
@@ -18,16 +18,16 @@ export default class NameCard extends React.Component {
     };
 
     static propTypes = {
-        id: PropTypes.string.isRequire,
-        jobname: PropTypes.string.isRequire,
-        departname: PropTypes.string.isRequire,
-        pt: PropTypes.string.isRequire,
-        rt: PropTypes.string.isRequire,
+        id: PropTypes.string.isRequired,
+        jobname: PropTypes.string.isRequired,
+        departname: PropTypes.string.isRequired,
+        pt: PropTypes.string.isRequired,
+        rt: PropTypes.string.isRequired,
         isFavorite: PropTypes.bool.isRequired
     };
 
     _call = event => {
-        const {jobname, rt} = this.state;
+        const {rt} = this.state;
         Alert.alert(
             "전화하기",
             `${rt}로 전화하시겠습니까?`,
@@ -41,15 +41,12 @@ export default class NameCard extends React.Component {
             ],
             { cancelable: false }
           );
-    }    
+    }
     componentDidMount = () => {
-        console.log(this.state.id);
     };
 
     render() {
-        console.log(this.state);
-        // const { isFavorite } = this.state;
-        return( 
+        return(
         <View  style={styles.container}>
             <TouchableOpacity onPress={this._call}>
                 <View style={styles.row}>
@@ -76,7 +73,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent:"space-between",
         alignItems:"center",
-        
+
     },
     jobname:{
         fontSize:25,
@@ -87,7 +84,7 @@ const styles = StyleSheet.create({
         fontSize:16
     },
     pt:{
-        fontSize:20, 
+        fontSize:20,
         textAlign:"right",
     }
 });

@@ -1,10 +1,10 @@
-import React, { Component, useContext} from "react";
+import React, { Component } from "react";
 import { Dimensions, StyleSheet, Text, View, ScrollView } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { findNameinJSON, findFullnameinJSON, departNameFromFullName, jobNameFromFullName } from './../util';
-import NameCard from "./NameCard";
+import { findNameinJSON, findFullnameinJSON, departNameFromFullName } from '../util';
+import NameCard from "./componenets/NameCard";
 
-const { height, width } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 export default class SearchScreen extends Component{
   constructor(props) {
@@ -15,58 +15,58 @@ export default class SearchScreen extends Component{
       nameCards : []
     }
   }
-  state = {
-    searchText:"",
-    telBook:[],
-    nameCards : []
-  };
+  // state = {
+  //   searchText:"",
+  //   telBook:[],
+  //   nameCards : []
+  // };
 
   componentDidMount() {
     // console.log(this.state.searchText);
   };
 
   render() {
-    const { searchText, nameCards } = this.state;
+    const { nameCards } = this.state;
     // console.log(Array.isArray(nameCards));
-    return( 
+    return(
       <View style={styles.container}>
-            <Text style={styles.title}></Text>
+            <Text style={styles.title}/>
             <View style={styles.card}>
-              <TextInput  style={styles.input} placeholder={"검색"} 
-              onChangeText={this._contollSearch}
+              <TextInput  style={styles.input} placeholder={"검색"}
+              onChangeText={this._controlSearch}
               onSubmitEditing={this._search}
               />
               <ScrollView contentContainerStyle>
                 {nameCards.map(nameCard => (
                   // console.log(nameCard)
-                  <NameCard 
-                    key = {nameCard.id} 
+                  <NameCard
+                    key = {nameCard.id}
                     // {...nameCard}
-                    id = {nameCard.id} 
+                    id = {nameCard.id}
                     jobname = {nameCard.jobname}
                     departname ={nameCard.departname}
                     pt = {nameCard.pt}
                     rt = {nameCard.rt}
                     isFavorite = {false}
-                    /> 
+                    />
                 ))
                 }
               </ScrollView>
-            </View>    
+            </View>
         </View>
     );
   }
-  _contollSearch = text => {
+  _controlSearch = text => {
     this.setState({
       searchText: text
     });
   }
   _search = () => {
     const searchValue = this.state.searchText;
-    if(searchValue.length == 0) return;
+    if(searchValue.length === 0) return;
     this.setState({nameCards:[]});
-    var findlist = findNameinJSON(this.state.telBook, searchValue, true);
-    for (var i = 0; i < findlist.length; i++) {
+    const findlist = findNameinJSON(this.state.telBook, searchValue, true);
+    for (let i = 0; i < findlist.length; i++) {
       const fullName = findFullnameinJSON(this.state.telBook, findlist[i].id);
       const departName = departNameFromFullName(fullName);
       const nameCard = {
@@ -86,7 +86,7 @@ export default class SearchScreen extends Component{
       );
     }
     // console.log(this.state.nameCards);
-    
+
   }
 }
 
