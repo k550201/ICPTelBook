@@ -42,7 +42,8 @@ export default class OrganizationScreen extends Component{
           {telBook.map(treeNode => (
               <TreeNode key = {treeNode.ID}
               node = {treeNode}
-              isCollapsed = {true} />
+              isCollapsed = {true}
+              level = {0} />
               ))}
         </ScrollView>
         </View>
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
     flex: 1,
-    width: width - 25,
+    width: width - 15,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     ...Platform.select({

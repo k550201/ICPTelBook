@@ -1,4 +1,6 @@
 import React from "react";
+import { SafeAreaView, StyleSheet, Platform } from 'react-native';
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SearchScreen from "./screens/SearchScreen";
@@ -19,29 +21,31 @@ const ICPTelBook = require('./ICPTelBook.json');
 const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
-    <Tab.Navigator initialRouteName="SearchScreen"
-    tabBarOptions={{
-      activeTintColor: '#3d7ece',
-    }}>
-      <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
-          tabBarLabel: '검색',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faSearch}  color={color} size={26} />
-          ),
-        }}  initialParams={{telBook:ICPTelBook}} />
-      <Tab.Screen name="OrganizationScreen" component={OrganizationScreen} options={{
-          tabBarLabel: '조직도',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faSitemap}  color={color} size={26} />
-          ),
-        }}  initialParams={{telBook:ICPTelBook}}   />
-      {/* <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
-          tabBarLabel: '즐겨찾기',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faStar}  color={color} size={26} />
-          ),
-        }} /> */}
-    </Tab.Navigator>
+      // <SafeAreaView>
+        <Tab.Navigator initialRouteName="SearchScreen"
+        tabBarOptions={{
+          activeTintColor: '#3d7ece',
+        }}>
+          <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
+              tabBarLabel: '검색',
+              tabBarIcon: ({ color, size }) => (
+                <FontAwesomeIcon icon={faSearch}  color={color} size={26} />
+              ),
+            }}  initialParams={{telBook:ICPTelBook}} />
+          <Tab.Screen name="OrganizationScreen" component={OrganizationScreen} options={{
+              tabBarLabel: '조직도',
+              tabBarIcon: ({ color, size }) => (
+                <FontAwesomeIcon icon={faSitemap}  color={color} size={26} />
+              ),
+            }}  initialParams={{telBook:ICPTelBook}}   />
+          {/* <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
+              tabBarLabel: '즐겨찾기',
+              tabBarIcon: ({ color, size }) => (
+                <FontAwesomeIcon icon={faStar}  color={color} size={26} />
+              ),
+            }} /> */}
+        </Tab.Navigator>
+
   );
 }
 
@@ -49,7 +53,7 @@ export default class App extends React.Component {
   state = {
     isReady: false,
   };
-  
+
   render() {
     if (!this.state.isReady) {
       return (
@@ -60,7 +64,7 @@ export default class App extends React.Component {
         />
       );
     }
-    
+
     return (
       <NavigationContainer>
         <MyTabs />
@@ -73,8 +77,15 @@ export default class App extends React.Component {
 
     const cacheImages = images.map(image => {
       return Asset.fromModule(image).downloadAsync();
-    }); 
+    });
     return Promise.all(cacheImages);
-  }  
+  }
 }
 
+const styles = StyleSheet.create({
+    droidSafeArea: {
+        flex: 1,
+        backgroundColor: "blue",
+        paddingTop: Platform.OS === 'android' ? 25 : 0
+    },
+});

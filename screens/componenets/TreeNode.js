@@ -1,63 +1,102 @@
-import React, { Component } from "react";
-import { Dimensions, StyleSheet, Text, View, Linking , Alert } from "react-native";
+import React, {Component} from "react";
+import {Dimensions, StyleSheet, Text, View, Linking, Alert} from "react-native";
 import PropTypes from "prop-types";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {TouchableOpacity} from "react-native-gesture-handler";
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
     faAngleRight,
     faAngleDown,
+    faPhoneAlt
 } from '@fortawesome/free-solid-svg-icons';
+// const {width} = Dimensions.get("window");
 
-const { width, height } = Dimensions.get("window");
 export default class TreeNode extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             node: props.node,
+            level: props.level,
             isCollapsed: true,
             hasChild: false,
-            child:[]
+            child: []
         };
 
     };
 
     static propTypes = {
         node: PropTypes.object.isRequired,
-        isCollapsed: PropTypes.bool.isRequired
+        isCollapsed: PropTypes.bool.isRequired,
+        level: PropTypes.number.isRequired
     };
+
     componentDidMount() {
         if (Array.isArray(this.state.node.CHILD)) {
-            this.setState({hasChild: true,
-                child:this.state.node.CHILD}
+            this.setState({
+                    hasChild: true,
+                    child: this.state.node.CHILD,
+                    level: this.state.level
+                }
             );
         }
-    }
-    _open= event => {
-        this.setState({isCollapsed:!this.state.isCollapsed});
+        // width = width - (this.state.level * 10)
+        // console.log(width);
+
     }
 
+    _open = event => {
+        this.setState({isCollapsed: !this.state.isCollapsed});
+    }
+    _call = event => {
+        const rt = this.state.node.RT;
+        Alert.alert(
+            "전화하기",
+            `${rt}로 전화하시겠습니까?`,
+            [
+                {
+                    text: "취소",
+
+                    style: "cancel"
+                },
+                {text: "전화하기", onPress: () => Linking.openURL(`tel:${rt}`)}
+            ],
+            {cancelable: false}
+        );
+    }
+
+
     render() {
-        const { isCollapsed, node, hasChild } = this.state
+        const {isCollapsed, node, hasChild, level} = this.state
+        const childLevel = level + 1;
         return (
-            <View  style={styles.container}>
+            <View style={styles.container} >
                 <View style={styles.row}>
-                    {hasChild?<TouchableOpacity onPress={this._open} >
-                        {isCollapsed ?
-                            <FontAwesomeIcon icon={faAngleRight} size = {30}/>
-                            : <FontAwesomeIcon icon={faAngleDown} size = {30} />
-                        }
+                    {hasChild ? <TouchableOpacity onPress={this._open}>
+                            {isCollapsed ?
+                                <FontAwesomeIcon icon={faAngleRight} size={30}/>
+                                : <FontAwesomeIcon icon={faAngleDown} size={30}/>
+                            }
+                        </TouchableOpacity>
+                        : null
+                    }
+                    <TouchableOpacity style={styles.staff} onPress={hasChild ? this._open : this._call}>
+                        <View style={styles.row}>
+                        <Text style={styles.name}>{node.NAME}</Text>
+
+                        {!hasChild ?
+                            (<Text style={styles.tel}><FontAwesomeIcon icon={faPhoneAlt} color={"gray"} size={16}/>️
+                                : {node.PT}</Text>)
+                            : null}
+                        </View>
                     </TouchableOpacity>
-                    : null
-                    }
-                    <Text style= {styles.name}>{node.NAME}</Text>
-                    {!hasChild? <Text>☎️ : {node.PT}</Text> : null}
+
                 </View>
-                    { isCollapsed ? null :
-                        node.CHILD.map(
-                            childNode => (
-                          <TreeNode key = {childNode.ID} node={childNode} isCollapsed={false} />
-                          ))
-                    }
+                {isCollapsed ? null :
+                    node.CHILD.map(
+                        childNode => (
+                            <TreeNode key={childNode.ID} node={childNode} isCollapsed={false}
+                                      level={childLevel}/>
+                        ))
+                }
             </View>
         );
     }
@@ -66,21 +105,40 @@ export default class TreeNode extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: width - 30,
+        // width:   width - 30  ,
         borderBottomColor: "#bbb",
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        justifyContent: "space-between",
-        padding:5
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        // justifyContent: "space-between",
+        flexWrap:"nowrap",
+        paddingLeft: 11,
+        paddingBottom: 2
 
     },
-    row :{
+    row: {
         flexDirection: "row",
-        justifyContent:"flex-start",
-        alignItems:"center",
+        justifyContent: "flex-start",
+        alignItems: "center",
 
     },
-    name :{
-        fontSize:30,
+    staff: {
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        width: "100%"
+    },
+    name: {
+        fontSize: 23,
+        fontWeight:"normal",
+        alignItems: "center",
+        flexGrow:1
+
+
+    },
+    tel: {
+        fontSize: 20,
+        alignItems: "center",
+        marginRight: 10
+
     }
 });
 

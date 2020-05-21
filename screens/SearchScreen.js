@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
     flex: 1,
-    width: width - 25,
+    width: width - 15,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     ...Platform.select({

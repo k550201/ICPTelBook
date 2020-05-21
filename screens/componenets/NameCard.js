@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Dimensions, StyleSheet, Text, View, Linking , Alert } from "react-native";
 import PropTypes from "prop-types";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
+import {faPhoneAlt} from "@fortawesome/free-solid-svg-icons";
 
 const { width, height } = Dimensions.get("window");
 export default class NameCard extends React.Component {
@@ -51,7 +53,7 @@ export default class NameCard extends React.Component {
             <TouchableOpacity onPress={this._call}>
                 <View style={styles.row}>
                     <Text style= {styles.jobname}>{this.state.jobname}</Text>
-                    <Text style= {styles.pt}>☎️ : {this.state.pt}</Text>
+                    <Text style= {styles.pt}><FontAwesomeIcon icon={faPhoneAlt} color={"gray"} size={16}/>️️ : {this.state.pt}</Text>
                 </View>
                 <Text style= {styles.departname}>{this.state.departname}</Text>
             </TouchableOpacity>
@@ -86,5 +88,7 @@ const styles = StyleSheet.create({
     pt:{
         fontSize:20,
         textAlign:"right",
+
+
     }
 });
