@@ -6,7 +6,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
     faAngleRight,
     faAngleDown,
-    faPhoneAlt
+    faPhoneAlt,
+    faUser
 } from '@fortawesome/free-solid-svg-icons';
 // const {width} = Dimensions.get("window");
 
@@ -38,23 +39,22 @@ export default class TreeNode extends React.Component {
                 }
             );
         }
-        // width = width - (this.state.level * 10)
-        // console.log(width);
-
     }
 
     _open = event => {
+
         this.setState({isCollapsed: !this.state.isCollapsed});
     }
     _call = event => {
+
         const rt = this.state.node.RT;
+        if (!rt) return;
         Alert.alert(
             "전화하기",
             `${rt}로 전화하시겠습니까?`,
             [
                 {
                     text: "취소",
-
                     style: "cancel"
                 },
                 {text: "전화하기", onPress: () => Linking.openURL(`tel:${rt}`)}
@@ -68,7 +68,7 @@ export default class TreeNode extends React.Component {
         const {isCollapsed, node, hasChild, level} = this.state
         const childLevel = level + 1;
         return (
-            <View style={styles.container} >
+            <View style={styles.container}>
                 <View style={styles.row}>
                     {hasChild ? <TouchableOpacity onPress={this._open}>
                             {isCollapsed ?
@@ -80,12 +80,16 @@ export default class TreeNode extends React.Component {
                     }
                     <TouchableOpacity style={styles.staff} onPress={hasChild ? this._open : this._call}>
                         <View style={styles.row}>
-                        <Text style={styles.name}>{node.NAME}</Text>
+                            {!hasChild ?
+                                <FontAwesomeIcon color={"#3d7ece"} icon={faUser} size={20}/> : null
+                            }
+                            <Text style={styles.name}> {node.NAME}</Text>
 
-                        {!hasChild ?
-                            (<Text style={styles.tel}><FontAwesomeIcon icon={faPhoneAlt} color={"gray"} size={16}/>️
-                                : {node.PT}</Text>)
-                            : null}
+                            {!hasChild ?
+                                (<Text style={styles.tel}><FontAwesomeIcon icon={faPhoneAlt} color={"gray"} size={16}/>️
+                                    : {node.PT}</Text>)
+                                : null
+                            }
                         </View>
                     </TouchableOpacity>
 
@@ -109,8 +113,9 @@ const styles = StyleSheet.create({
         borderBottomColor: "#bbb",
         // borderBottomWidth: StyleSheet.hairlineWidth,
         // justifyContent: "space-between",
-        flexWrap:"nowrap",
-        paddingLeft: 11,
+        flexWrap: "nowrap",
+        paddingLeft: 16,
+        paddingTop: 1,
         paddingBottom: 2
 
     },
@@ -127,15 +132,15 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     name: {
-        fontSize: 23,
-        fontWeight:"normal",
+        fontSize: 20,
+        fontWeight: "normal",
         alignItems: "center",
-        flexGrow:1
+        flexGrow: 1
 
 
     },
     tel: {
-        fontSize: 20,
+        fontSize: 18,
         alignItems: "center",
         marginRight: 10
 
