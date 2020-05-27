@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "인천경찰청 스마트전화번호부",
+    "name": "인천경찰전화번호부",
     "slug": "ICPTelBook",
+    "sdkVersion": "37.0.0",
     "platforms": [
       "ios",
       "android",
@@ -22,7 +23,13 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "kr.go.icpolice",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "kr.go.icpolice",
+      "versionCode": 1
     },
     "description": ""
   }

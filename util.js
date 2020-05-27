@@ -49,7 +49,7 @@ export function findNameinJSON(obj, findString, bStart) {
                 const nameCard = {id:obj.ID, name:obj.NAME, pt:obj.PT, rt:obj.RT};
                 results.push(nameCard);
             }
-                
+
         }
     }
 

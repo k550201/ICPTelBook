@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Dimensions, StyleSheet, Text, View, Linking, Alert} from "react-native";
+import {Animated, StyleSheet, Text, View, Linking, Alert} from "react-native";
 import PropTypes from "prop-types";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -7,7 +7,9 @@ import {
     faAngleRight,
     faAngleDown,
     faPhoneAlt,
-    faUser
+    faUser,
+    faFolder,
+    faFolderOpen,
 } from '@fortawesome/free-solid-svg-icons';
 // const {width} = Dimensions.get("window");
 
@@ -19,7 +21,9 @@ export default class TreeNode extends React.Component {
             level: props.level,
             isCollapsed: true,
             hasChild: false,
-            child: []
+            child: [],
+            opacity: new Animated.Value(0),
+
         };
 
     };
@@ -72,8 +76,8 @@ export default class TreeNode extends React.Component {
                 <View style={styles.row}>
                     {hasChild ? <TouchableOpacity onPress={this._open}>
                             {isCollapsed ?
-                                <FontAwesomeIcon icon={faAngleRight} size={30}/>
-                                : <FontAwesomeIcon icon={faAngleDown} size={30}/>
+                                <FontAwesomeIcon icon={faFolder} size={20} color={"#ffda69"}  />
+                                : <FontAwesomeIcon icon={faFolderOpen} size={20} color={"#ffda69"} />
                             }
                         </TouchableOpacity>
                         : null
@@ -81,7 +85,7 @@ export default class TreeNode extends React.Component {
                     <TouchableOpacity style={styles.staff} onPress={hasChild ? this._open : this._call}>
                         <View style={styles.row}>
                             {!hasChild ?
-                                <FontAwesomeIcon color={"#3d7ece"} icon={faUser} size={20}/> : null
+                                <FontAwesomeIcon color={"#0054a6"} icon={faUser} size={20}/> : null
                             }
                             <Text style={styles.name}> {node.NAME}</Text>
 
@@ -94,12 +98,15 @@ export default class TreeNode extends React.Component {
                     </TouchableOpacity>
 
                 </View>
-                {isCollapsed ? null :
+                {isCollapsed ? null : (
                     node.CHILD.map(
                         childNode => (
                             <TreeNode key={childNode.ID} node={childNode} isCollapsed={false}
                                       level={childLevel}/>
-                        ))
+
+                        )
+                    )
+                )
                 }
             </View>
         );

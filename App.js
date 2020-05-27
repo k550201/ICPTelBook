@@ -5,9 +5,11 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SearchScreen from "./screens/SearchScreen";
 import OrganizationScreen from "./screens/OrganizationScreen";
+import HomeScreen from "./screens/HomeScreen";
 import {FavoriteScreen} from "./screens/FavoriteScreen";
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
+    faHome,
     faSearch,
     faSitemap,
     faStar,
@@ -24,8 +26,15 @@ function MyTabs() {
 
             <Tab.Navigator initialRouteName="SearchScreen"
                            tabBarOptions={{
-                               activeTintColor: '#3d7ece',
+                               activeTintColor: '#0054a6',
                            }}>
+
+                <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
+                    tabBarLabel: '메뉴',
+                    tabBarIcon: ({color, size}) => (
+                        <FontAwesomeIcon icon={faHome} color={color} size={26}/>
+                    ),
+                }} />
                 <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
                     tabBarLabel: '검색',
                     tabBarIcon: ({color, size}) => (

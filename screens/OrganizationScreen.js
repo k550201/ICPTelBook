@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {StyleSheet, Text, View, ScrollView, Dimensions} from "react-native";
+import {StyleSheet, ScrollView, Dimensions} from "react-native";
 import {AppLoading} from "expo";
 import TreeNode from "./componenets/TreeNode";
 import {SafeAreaView} from "react-native-safe-area-context";
@@ -23,7 +23,6 @@ export default class OrganizationScreen extends Component {
     _load = async () => {
         const telBook = this.props.route.params.telBook;
         this.setState({isLoading: true, telBook: telBook});
-
     };
 
     render() {
@@ -31,7 +30,6 @@ export default class OrganizationScreen extends Component {
 
         if (!isLoading)
             return <AppLoading/>;
-        console.log(`telbookArray : ${Array.isArray(telBook)}`);
 
         return (
             <SafeAreaView>

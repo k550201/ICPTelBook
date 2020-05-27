@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import {Dimensions, StyleSheet, Image, Text, View, Linking, ScrollView, Alert} from "react-native";
+import {Dimensions, StyleSheet, Image, View, Linking, ScrollView, Alert} from "react-native";
 import {TextInput, TouchableOpacity} from "react-native-gesture-handler";
 import {findNameinJSON, findFullnameinJSON, departNameFromFullName} from '../util';
 import NameCard from "./componenets/NameCard";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 const {height, width} = Dimensions.get("window");
-
 
 export default class SearchScreen extends Component {
     constructor(props) {
@@ -113,7 +112,7 @@ export default class SearchScreen extends Component {
 const styles = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: "#3d7ece",
+            backgroundColor: "#0054a6",
             alignItems: "center",
             width: width,
             height: height
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
         input: {
             margin: 5,
             padding: 10,
-            borderColor: "#3d7ece",
+            borderColor: "#0054a6",
             borderWidth: 3,
             borderRadius: 10,
             fontSize: 25,

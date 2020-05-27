@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useRef} from "react";
 import {Dimensions, StyleSheet, Text, View, Linking, Alert} from "react-native";
 import PropTypes from "prop-types";
 import {TouchableOpacity} from "react-native-gesture-handler";
@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faPhoneAlt} from "@fortawesome/free-solid-svg-icons";
 
 const {width, height} = Dimensions.get("window");
+
 export default class NameCard extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +16,7 @@ export default class NameCard extends React.Component {
             departname: props.departname,
             pt: props.pt,
             rt: props.rt,
-            isFavorite: false
+            isFavorite: false,
         };
     };
 
@@ -36,7 +37,7 @@ export default class NameCard extends React.Component {
             [
                 {
                     text: "취소",
-                    onPress: () => console.log("Cancel Pressed"),
+                    // onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                 },
                 {text: "전화하기", onPress: () => Linking.openURL(`tel:${rt}`)}
@@ -45,6 +46,7 @@ export default class NameCard extends React.Component {
         );
     }
     componentDidMount = () => {
+
     };
 
     render() {
