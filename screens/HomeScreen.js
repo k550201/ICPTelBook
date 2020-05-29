@@ -3,38 +3,48 @@ import {View, Text, Dimensions, StyleSheet, Image} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import { TabActions } from '@react-navigation/native';
+import { useFonts } from '@use-expo/font';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+    faSearch,
+    faSitemap,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { AppLoading } from 'expo';
 
 const {width} = Dimensions.get("window");
 
+
 export default class HomeScreen extends Component {
+
+
     constructor(props) {
         super(props);
     }
     _goSearch = event => {
-        console.log('goSearch');
-        console.log(this.props);
         this.props.navigation.jumpTo('SearchScreen');
 
     }
     _goOrganization = event => {
-        console.log('goOrganization');
         this.props.navigation.jumpTo('OrganizationScreen');
 
     }
+
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <Image style={styles.logo} source={require('../assets/splash.png')} resizeMode={'stretch'} />
-                <Text style={styles.title}>경찰전화번호부</Text>
-                <TouchableOpacity style={styles.touchableBtn} onPress={this._goSearch}>
-                    <Text style={styles.SearchBtn}>검색</Text>
+        <SafeAreaView style={styles.container}>
+            <Image style={styles.logo} source={require('../assets/splash.png')} resizeMode={'stretch'}/>
+            <Text style={styles.title}>경찰전화번호부</Text>
+            <TouchableOpacity style={styles.touchableBtn} onPress={this._goSearch}>
+                <Text style={styles.SearchBtn}>검 색</Text>
 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableBtn} onPress={this._goOrganization}>
-                    <Text style={styles.OrganizationBtn}>조직도</Text>
-                </TouchableOpacity>
-            </SafeAreaView>
-        );
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.touchableBtn} onPress={this._goOrganization}>
+                <Text style={styles.OrganizationBtn}>조직도</Text>
+            </TouchableOpacity>
+        </SafeAreaView>
+    )
+
     }
 }
 const styles = StyleSheet.create({
@@ -73,9 +83,11 @@ const styles = StyleSheet.create({
         height: 80,
         width: width - 100,
         borderRadius:10,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
+        color:"white"
     },
     OrganizationBtn: {
+
         fontSize:40,
         backgroundColor: "#0054a6",
         alignContent: "center",
@@ -84,7 +96,8 @@ const styles = StyleSheet.create({
         height: 80,
         width: width - 100,
         borderRadius:10,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
+        color:"white"
     }
 
 });

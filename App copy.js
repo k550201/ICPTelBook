@@ -12,19 +12,17 @@ export default class App extends React.Component {
   componentDidMount = () => {
     const ICPTelBook = require('./ICPTelBook.json');
     var listofFind = findNameinJSON(ICPTelBook, "경무");
-    console.log(listofFind);
 
 
     for(var i = 0; i < listofFind.length; i++){
       fullName = findFullnameinJSON(ICPTelBook, listofFind[i]);
-      console.log(fullName);
     }
 
     // console.log("child");
     // console.log(listofFind);
     // const jo = JSON.parse(JSON.stringify(ICPTelBook));
     // const km = getKeys(ICPTelBook, "4f236dd9");
-    
+
     // console.log(km);
   }
  render() {
@@ -36,7 +34,7 @@ export default class App extends React.Component {
       </NavigationContainer>
     );
   }
-  
+
 }
 // results =[]
 // function findNameinJSON(obj, findString) {
@@ -54,12 +52,12 @@ export default class App extends React.Component {
 //       }
 //     }
 //     else {
-//       if (obj.NAME.indexOf(findString) > -1) 
+//       if (obj.NAME.indexOf(findString) > -1)
 //         results.push(obj.ID)
 //     }
 //   }
-  
-//   return results;  
+
+//   return results;
 // }
 
 // function findFullnameinJSON(obj, id){

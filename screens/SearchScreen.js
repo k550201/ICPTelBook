@@ -45,7 +45,7 @@ export default class SearchScreen extends Component {
                     <TouchableOpacity onPress={this._linkHome}>
                         <Image style={styles.logo} source={require('../assets/logo.png')}/>
                     </TouchableOpacity>
-                    <TextInput style={styles.input} placeholder={"검색"}
+                    <TextInput style={styles.input} placeholder={"업무검색"}
                                onChangeText={this._controlSearch}
                                onSubmitEditing={this._search}
                     />

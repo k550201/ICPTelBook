@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SearchScreen from "./screens/SearchScreen";
 import OrganizationScreen from "./screens/OrganizationScreen";
 import HomeScreen from "./screens/HomeScreen";
+
 import {FavoriteScreen} from "./screens/FavoriteScreen";
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -13,7 +14,6 @@ import {
     faHome,
     faSearch,
     faSitemap,
-    faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
