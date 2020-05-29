@@ -18,6 +18,7 @@ import {
 import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 
+
 const ICPTelBook = require('./ICPTelBook.json');
 const { Navigation } = require('react-native-navigation');
 const Tab = createBottomTabNavigator();
