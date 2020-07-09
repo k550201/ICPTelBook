@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {StyleSheet, ScrollView, Dimensions} from "react-native";
+import {StyleSheet, ScrollView, Dimensions,Text} from "react-native";
 import {AppLoading} from "expo";
 import TreeNode from "./componenets/TreeNode";
 import {SafeAreaView} from "react-native-safe-area-context";
@@ -32,7 +32,9 @@ export default class OrganizationScreen extends Component {
             return <AppLoading/>;
 
         return (
+
             <SafeAreaView>
+                <Text style={styles.title}>인천지방경찰청 조직도</Text>
                 <ScrollView contentContainerStyle>
                     {telBook.map(treeNode => (
                         <TreeNode key={treeNode.ID}
@@ -58,14 +60,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#55efc4",
         alignItems: "center",
         justifyContent: "center",
+        paddingTop: 10
     },
     title: {
-        color: "white",
-        fontSize: 10,
+        fontSize: 30,
+        textAlign: "center",
         marginTop: 10,
         fontWeight: "200",
-        marginBottom: 20,
-        height: 0
+
     },
     card: {
         backgroundColor: "white",

@@ -83,15 +83,15 @@ const styles = StyleSheet.create({
 
     },
     jobname: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "800",
     },
     departname: {
         textAlign: "right",
-        fontSize: 15
+        fontSize: 16
     },
     pt: {
-        fontSize: 18,
+        fontSize: 19,
         textAlign: "right",
 
 

@@ -6,8 +6,7 @@ export function findFullnameinJSON(obj, id) {
             const departName = findFullnameinJSON(obj[i], id);
             if (departName.length > 0) {
                 return departName;
-            } else
-                return "";
+            }
         }
     } else {
         const bHasChild = Object.keys(obj).indexOf("CHILD") >= 0;

@@ -76,8 +76,8 @@ export default class TreeNode extends React.Component {
                 <View style={styles.row}>
                     {hasChild ? <TouchableOpacity onPress={this._open}>
                             {isCollapsed ?
-                                <FontAwesomeIcon icon={faFolder} size={20} color={"#ffda69"}  />
-                                : <FontAwesomeIcon icon={faFolderOpen} size={20} color={"#ffda69"} />
+                                <FontAwesomeIcon icon={faFolder} size={22} color={"#ffda69"}  />
+                                : <FontAwesomeIcon icon={faFolderOpen} size={22} color={"#ffda69"} />
                             }
                         </TouchableOpacity>
                         : null
@@ -85,7 +85,7 @@ export default class TreeNode extends React.Component {
                     <TouchableOpacity style={styles.staff} onPress={hasChild ? this._open : this._call}>
                         <View style={styles.row}>
                             {!hasChild ?
-                                <FontAwesomeIcon color={"#0054a6"} icon={faUser} size={20}/> : null
+                                <FontAwesomeIcon color={"#0054a6"} icon={faUser} size={22}/> : null
                             }
                             <Text style={styles.name}> {node.NAME}</Text>
 
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     name: {
-        fontSize: 20,
+        fontSize: 23,
         fontWeight: "normal",
         alignItems: "center",
         flexGrow: 1
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
 
     },
     tel: {
-        fontSize: 18,
+        fontSize: 20,
         alignItems: "center",
         marginRight: 10
 
