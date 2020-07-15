@@ -1,3 +1,6 @@
+const Hangul = require('hangul-js');
+
+
 export function findFullnameinJSON(obj, id) {
     result = "";
     const bArray = Array.isArray(obj);

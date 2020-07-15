@@ -1,10 +1,16 @@
 import React, {Component} from "react";
-import {StyleSheet, ScrollView, Dimensions,Text} from "react-native";
+import {View ,StyleSheet, ScrollView, Dimensions,Text} from "react-native";
 import {AppLoading} from "expo";
 import TreeNode from "./componenets/TreeNode";
 import {SafeAreaView} from "react-native-safe-area-context";
+import * as Font from 'expo-font';
 
-const {width} = Dimensions.get("window");
+const {width, height} = Dimensions.get("window");
+
+let customFonts = {
+    'NanumBarunGothic': require('../assets/fonts/NanumBarunGothic.ttf'),
+    'NanumBarunGothicBold': require('../assets/fonts/NanumBarunGothicBold.ttf')
+};
 
 export default class OrganizationScreen extends Component {
     constructor(props) {
@@ -13,7 +19,9 @@ export default class OrganizationScreen extends Component {
 
     state = {
         telBook: [],
-        isLoading: false
+        isLoading: false,
+        fontsLoaded: false,
+
     };
 
     componentDidMount() {
@@ -23,19 +31,23 @@ export default class OrganizationScreen extends Component {
     _load = async () => {
         const telBook = this.props.route.params.telBook;
         this.setState({isLoading: true, telBook: telBook});
+        await Font.loadAsync(customFonts);
+        this.setState({ fontsLoaded: true });
     };
 
     render() {
-        const {isLoading, telBook} = this.state;
+        const {isLoading, telBook, fontsLoaded} = this.state;
 
         if (!isLoading)
             return <AppLoading/>;
+        if (!fontsLoaded)
+            return <AppLoading/>;
 
         return (
-
+        <View style={styles.container}>
             <SafeAreaView>
                 <Text style={styles.title}>인천지방경찰청 조직도</Text>
-                <ScrollView contentContainerStyle>
+                <ScrollView contentContainerStyle style={styles.scrollView}>
                     {telBook.map(treeNode => (
                         <TreeNode key={treeNode.ID}
                                   node={treeNode}
@@ -44,12 +56,7 @@ export default class OrganizationScreen extends Component {
                     ))}
                 </ScrollView>
             </SafeAreaView>
-            //   // <View style={styles.container}>
-            //   //   <Text style={styles.title}/>
-            //   //   <View style={styles.card}>
-            //   //
-            //   //   </View>
-            // </View>
+        </View>
         )
     }
 }
@@ -57,17 +64,16 @@ export default class OrganizationScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#55efc4",
+        // backgroundColor: "#55efc4",
         alignItems: "center",
-        justifyContent: "center",
-        paddingTop: 10
+        justifyContent: "center"
     },
     title: {
+        fontFamily:"NanumBarunGothicBold",
         fontSize: 30,
         textAlign: "center",
         marginTop: 10,
         fontWeight: "200",
-
     },
     card: {
         backgroundColor: "white",
@@ -96,4 +102,12 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         fontSize: 25
     },
+    scrollView:{
+        width: width - 2,
+        height: height - 105,
+        backgroundColor:"lightgray",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
+
+    }
 });
