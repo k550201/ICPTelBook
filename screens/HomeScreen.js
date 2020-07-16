@@ -65,13 +65,13 @@ export default class HomeScreen extends Component {
 
             <AwesomeButton style={styles.touchableBtn} height={80} borderRadius={10} onPress={this._goSearch} >
                 <Text style={styles.SearchBtn}>
-                    <FontAwesomeIcon icon={faSearch} color={"white"} size={36}/>️️
-                    검 색</Text>
+                    <FontAwesomeIcon icon={faSearch} color={"white"} size={34}/>️️
+                    검    색</Text>
             </AwesomeButton>
 
             <AwesomeButton style={styles.touchableBtn} height={80} borderRadius={10} onPress={this._goOrganization}>
                 <Text style={styles.OrganizationBtn}>
-                    <FontAwesomeIcon icon={faSitemap} color={"white"} size={36}/>️️
+                    <FontAwesomeIcon icon={faSitemap} color={"white"} size={34}/>️️
                     조직도</Text>
             </AwesomeButton>
         </SafeAreaView>

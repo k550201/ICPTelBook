@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "인천경찰전화번호부",
+    "name": "인천경찰\n전화번호부",
     "slug": "ICPTelBook",
     "sdkVersion": "37.0.0",
     "platforms": [
@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "splash": {
@@ -24,7 +24,7 @@
     ],
     "ios": {
       "bundleIdentifier": "kr.go.icpolice",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.2",
       "supportsTablet": true
     },
     "android": {

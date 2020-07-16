@@ -1,6 +1,19 @@
 const Hangul = require('hangul-js');
 
 
+function getCho(src) {
+    var cho = '';
+    for(var i=0; i<src.length; i++) {
+        var index = ((src.charCodeAt(i) - 44032) /28) / 21;
+        if(index >= 0) {
+            cho += String.fromCharCode(index + 4352);
+        }
+    }
+    console.log(cho);
+    return cho;
+}
+
+
 export function findFullnameinJSON(obj, id) {
     result = "";
     const bArray = Array.isArray(obj);

@@ -1,11 +1,12 @@
 import React, {Component} from "react";
-import {View ,StyleSheet, ScrollView, Dimensions,Text} from "react-native";
+import {ImageBackground, View ,StyleSheet, ScrollView, Dimensions,Text} from "react-native";
 import {AppLoading} from "expo";
 import TreeNode from "./componenets/TreeNode";
 import {SafeAreaView} from "react-native-safe-area-context";
 import * as Font from 'expo-font';
-
 const {width, height} = Dimensions.get("window");
+
+const birdImage = require('../assets/birds.png');
 
 let customFonts = {
     'NanumBarunGothic': require('../assets/fonts/NanumBarunGothic.ttf'),
@@ -47,6 +48,9 @@ export default class OrganizationScreen extends Component {
         <View style={styles.container}>
             <SafeAreaView>
                 <Text style={styles.title}>인천지방경찰청 조직도</Text>
+                <ImageBackground source={birdImage} style={styles.image} resizeMode={"center"}
+                                 imageStyle={{opacity:0.1, width: "100%", flex:1,
+                                     alignItems:"center", justifyContent:"center"}}>
                 <ScrollView contentContainerStyle style={styles.scrollView}>
                     {telBook.map(treeNode => (
                         <TreeNode key={treeNode.ID}
@@ -55,6 +59,7 @@ export default class OrganizationScreen extends Component {
                                   level={0}/>
                     ))}
                 </ScrollView>
+                </ImageBackground>
             </SafeAreaView>
         </View>
         )
@@ -74,6 +79,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 10,
         fontWeight: "200",
+        borderBottomWidth: 5,
+        borderBottomColor: "lightgray",
     },
     card: {
         backgroundColor: "white",
@@ -103,11 +110,21 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     scrollView:{
-        width: width - 2,
         height: height - 105,
-        backgroundColor:"lightgray",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10
+        // borderTopWidth:2,
+        // borderLeftWidth:1,
+        // borderRightWidth:1,
+        // borderTopLeftRadius: 10,
+        // borderTopRightRadius: 10,
+        // borderColor:"#0054a6",
+        backgroundColor: 'rgba(255,255,255,0.1)'
+    },
+    image: {
+        flex: 1,
+        // resizeMode: "cover",
+        justifyContent: "center"
 
-    }
+        // opacity:0.1
+
+    },
 });

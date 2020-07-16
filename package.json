@@ -25,6 +25,7 @@
     "react-native-navigation": "^6.7.0",
     "react-native-really-awesome-button": "^1.6.0",
     "react-native-reanimated": "~1.7.0",
+    "react-native-root-toast": "^3.2.1",
     "react-native-safe-area-context": "0.7.3",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "~2.2.0",
@@ -39,10 +40,5 @@
     "babel-preset-expo": "~8.1.0",
     "prop-types": "^15.7.2"
   },
-  "private": true,
-  "rnpm": {
-    "assets": [
-      "./assets/fonts/"
-    ]
-  }
+  "private": true
 }
