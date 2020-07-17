@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         flex: 1,
         // backgroundColor: "#55efc4",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+
     },
     title: {
         fontFamily:"NanumBarunGothicBold",
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
         fontWeight: "200",
         borderBottomWidth: 5,
         borderBottomColor: "lightgray",
+        height:50
     },
     card: {
         backgroundColor: "white",
