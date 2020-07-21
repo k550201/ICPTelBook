@@ -2,7 +2,6 @@
   "expo": {
     "name": "인천경찰\n전화번호부",
     "slug": "ICPTelBook",
-    "sdkVersion": "37.0.0",
     "platforms": [
       "ios",
       "android",

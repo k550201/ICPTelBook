@@ -1,33 +1,60 @@
-import React, {Component} from "react";
-import {Dimensions, StyleSheet, Image, View, Linking, ScrollView, Alert, ImageBackground} from "react-native";
+import React, {Component, useState} from "react";
+import {Button, Dimensions, StyleSheet, Image, View, Linking, ScrollView, Alert, ImageBackground} from "react-native";
 import {TextInput, TouchableOpacity} from "react-native-gesture-handler";
 import {findNameinJSON, findFullnameinJSON, departNameFromFullName} from '../util';
 import NameCard from "./componenets/NameCard";
 import {SafeAreaView} from "react-native-safe-area-context";
+import { RootSiblingParent } from 'react-native-root-siblings';
 import Toast from 'react-native-root-toast';
-
 
 const {height, width} = Dimensions.get("window");
 
 export default class SearchScreen extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             searchText: "",
             telBook: this.props.route.params.telBook,
             visible: false,
+            bSearch:true,
             nameCards: []
         }
+    };
+
+    _focus = () => {
+        console.log("_focus");
+        // console.log(this.state.searchText);
+        // console.log(this.props.route.params.searchText);
+        // this.setState({searchText:this.props.route.params.searchText});
+        console.log("1 : " + this.state.searchText);
+        console.log("2 : " + this.props.route.params.searchText);
+        console.log("3 : " + this.props);
+
+        if(!this.state.bSearch){
+            this.setState({bSearch:true});
+            return;
+        }
+        if(this.props.route.params.searchText === this.state.searchText) return;
+        this._controlSearch(this.props.route.params.searchText);
+        this._search(this.props.route.params.searchText);
+    }
+
+    _tabPress = () => {
+        console.log('tabPress');
+        this.setState({bSearch:false});
     }
 
     componentDidMount() {
-        // setTimeout(() => this.setState({
-        //     visible: true
-        // }), 1000); // show toast after 2s
-        //
-        // setTimeout(() => this.setState({
-        //     visible: false
-        // }), 5000); // hide toast after 5s
+        this.props.navigation.addListener('focus', this._focus);
+        this.props.navigation.addListener('tabPress', this._tabPress);
+        setTimeout(() => this.setState({
+            visible: true
+        }), 2000); // show toast after 2s
+
+        setTimeout(() => this.setState({
+            visible: false
+        }), 5000); // hide toast after 5s
     };
 
     _linkHome = event => {
@@ -48,11 +75,13 @@ export default class SearchScreen extends Component {
 
     render() {
         const {nameCards} = this.state;
-        // console.log(Array.isArray(nameCards));
+        const theme = {
+            main: "mediumseagreen"
+        };
         return (
-
-
             <SafeAreaView>
+
+                <RootSiblingParent>
                 <View style={styles.row}>
                     <TouchableOpacity onPress={this._linkHome}>
                         <Image style={styles.logo} source={require('../assets/logo.png')}/>
@@ -60,22 +89,14 @@ export default class SearchScreen extends Component {
                     <TextInput style={styles.input} placeholder={"업무검색(예:경무)"}
                                onChangeText={this._controlSearch}
                                onSubmitEditing={this._search}
+                               value={this.state.searchText}
                     />
-                </View>
-                <Toast
-                    visible={this.state.visible}
-                    position={250}
-                    shadow={false}
-                    animation={false}
-                    hideOnPress={true}
-                >This is a message</Toast>
 
+                </View>
                 <ScrollView contentContainerStyle style={styles.scrollView}>
                     {nameCards.map(nameCard => (
-                        // console.log(nameCard)
                         <NameCard
                             key={nameCard.id}
-                            // {...nameCard}
                             id={nameCard.id}
                             jobname={nameCard.jobname}
                             departname={nameCard.departname}
@@ -91,6 +112,7 @@ export default class SearchScreen extends Component {
 
                     </View>
                 </View>
+                </RootSiblingParent>
             </SafeAreaView>
         );
     }
@@ -100,8 +122,11 @@ export default class SearchScreen extends Component {
             searchText: text
         });
     }
-    _search = () => {
-        const searchValue = this.state.searchText;
+    _search = (txt) => {
+
+        const searchValue = (typeof(txt)==='string')?txt:this.state.searchText;
+        console.log("3 : " + searchValue);
+        if (searchValue === undefined) return;
         if (searchValue.length === 0) return;
         this.setState({nameCards: []});
         const findlist = findNameinJSON(this.state.telBook, searchValue, true);
@@ -125,22 +150,34 @@ export default class SearchScreen extends Component {
                 }
             );
         }
+        console.log(listsize);
         const message = `${listsize}건이 검색되었습니다.`;
-        let toast = Toast.show(message, {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.CENTER,
+
+        const toast = Toast.show(message, {
+            duration: 1000,
+            position: Toast.positions.BOTTOM,
             shadow: true,
             animation: true,
             hideOnPress: true,
-            delay: 0
+            delay: 0,
+            onShow: () => {
+                // calls on toast\`s appear animation start
+            },
+            onShown: () => {
+                // calls on toast\`s appear animation end.
+            },
+            onHide: () => {
+                // calls on toast\`s hide animation start.
+            },
+            onHidden: () => {
+                // calls on toast\`s hide animation end.
+            }
         });
 
-// You can manually hide the Toast, or it will automatically disappear after a `duration` ms timeout.
-        setTimeout(function () {
-            Toast.hide(toast);
-        }, 2000);
-        // console.log(this.state.nameCards);
-
+        // // You can manually hide the Toast, or it will automatically disappear after a `duration` ms timeout.
+        // setTimeout(function () {
+        //     Toast.hide(toast);
+        // }, 2000);
     }
 }
 
