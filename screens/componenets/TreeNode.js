@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
-    faAngleRight,
-    faAngleDown,
     faPhoneAlt,
     faUser,
     faFolder,
@@ -76,8 +74,8 @@ export default class TreeNode extends React.Component {
                 <View style={styles.row}>
                     {hasChild ? <TouchableOpacity onPress={this._open}>
                             {isCollapsed ?
-                                <FontAwesomeIcon icon={faFolder} size={22} color={"#ffda69"}  />
-                                : <FontAwesomeIcon icon={faFolderOpen} size={22} color={"#ffda69"} />
+                                <FontAwesomeIcon icon={faFolder} size={22} color={"#ffda69"}/>
+                                : <FontAwesomeIcon icon={faFolderOpen} size={22} color={"#ffda69"}/>
                             }
                         </TouchableOpacity>
                         : null

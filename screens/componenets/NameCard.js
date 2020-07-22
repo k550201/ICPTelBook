@@ -5,7 +5,7 @@ import {TouchableOpacity} from "react-native-gesture-handler";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faPhoneAlt} from "@fortawesome/free-solid-svg-icons";
 
-const {width, height} = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 
 export default class NameCard extends React.Component {
     constructor(props) {

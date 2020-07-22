@@ -1,10 +1,18 @@
 import React, {Component} from "react";
-import {ImageBackground, View ,StyleSheet, ScrollView, Dimensions,Text} from "react-native";
+import {ImageBackground, View, StyleSheet, ScrollView, Dimensions, Text} from "react-native";
 import {AppLoading} from "expo";
 import TreeNode from "./componenets/TreeNode";
 import {SafeAreaView} from "react-native-safe-area-context";
 import * as Font from 'expo-font';
+
 const {width, height} = Dimensions.get("window");
+
+const naviBarHeight = 50;
+const barHeight = 5
+const titleHeight = 55
+const titleMargin = 5
+const listHeight = height - titleHeight - naviBarHeight - barHeight - titleMargin;
+
 
 const birdImage = require('../assets/birds.png');
 
@@ -33,7 +41,7 @@ export default class OrganizationScreen extends Component {
         const telBook = this.props.route.params.telBook;
         this.setState({isLoading: true, telBook: telBook});
         await Font.loadAsync(customFonts);
-        this.setState({ fontsLoaded: true });
+        this.setState({fontsLoaded: true});
     };
 
     render() {
@@ -45,23 +53,25 @@ export default class OrganizationScreen extends Component {
             return <AppLoading/>;
 
         return (
-        <View style={styles.container}>
-            <SafeAreaView>
-                <Text style={styles.title}>인천지방경찰청 조직도</Text>
-                <ImageBackground source={birdImage} style={styles.image} resizeMode={"center"}
-                                 imageStyle={{opacity:0.1, width: "100%", flex:1,
-                                     alignItems:"center", justifyContent:"center"}}>
-                <ScrollView contentContainerStyle style={styles.scrollView}>
-                    {telBook.map(treeNode => (
-                        <TreeNode key={treeNode.ID}
-                                  node={treeNode}
-                                  isCollapsed={true}
-                                  level={0}/>
-                    ))}
-                </ScrollView>
-                </ImageBackground>
-            </SafeAreaView>
-        </View>
+            <View style={styles.container}>
+                <SafeAreaView>
+                    <Text style={styles.title}>인천지방경찰청 조직도</Text>
+                    <ImageBackground source={birdImage} style={styles.image} resizeMode={"center"}
+                                     imageStyle={{
+                                         opacity: 0.1, width: "100%", flex: 1,
+                                         alignItems: "center", justifyContent: "center"
+                                     }}>
+                        <ScrollView contentContainerStyle style={styles.scrollView}>
+                            {telBook.map(treeNode => (
+                                <TreeNode key={treeNode.ID}
+                                          node={treeNode}
+                                          isCollapsed={true}
+                                          level={0}/>
+                            ))}
+                        </ScrollView>
+                    </ImageBackground>
+                </SafeAreaView>
+            </View>
         )
     }
 }
@@ -75,14 +85,14 @@ const styles = StyleSheet.create({
 
     },
     title: {
-        fontFamily:"NanumBarunGothicBold",
+        fontFamily: "NanumBarunGothicBold",
         fontSize: 30,
         textAlign: "center",
         marginTop: 10,
         fontWeight: "200",
         borderBottomWidth: 5,
         borderBottomColor: "lightgray",
-        height:50
+        height: 50
     },
     card: {
         backgroundColor: "white",
@@ -111,8 +121,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         fontSize: 25
     },
-    scrollView:{
-        height: height - 105,
+    scrollView: {
+        height: listHeight,
         // borderTopWidth:2,
         // borderLeftWidth:1,
         // borderRightWidth:1,

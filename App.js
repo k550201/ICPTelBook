@@ -20,42 +20,47 @@ import {Asset} from 'expo-asset';
 
 
 const ICPTelBook = require('./ICPTelBook.json');
-const { Navigation } = require('react-native-navigation');
+const {Navigation} = require('react-native-navigation');
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
     return (
 
-            <Tab.Navigator initialRouteName="HomeScreen"
-                           tabBarOptions={{
-                               activeTintColor: '#0054a6',
-                           }}>
+        <Tab.Navigator initialRouteName="HomeScreen"
+                       tabBarOptions={{
+                           activeTintColor: '#0054a6',
 
-                <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
-                    tabBarLabel: '메뉴',
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faHome} color={color} size={26}/>
-                    ),
-                }} />
-                <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
-                    tabBarLabel: '검색',
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faSearch} color={color} size={26}/>
-                    ),
-                }} initialParams={{telBook: ICPTelBook}}/>
-                <Tab.Screen name="OrganizationScreen" component={OrganizationScreen} options={{
-                    tabBarLabel: '조직도',
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faSitemap} color={color} size={26}/>
-                    ),
-                }} initialParams={{telBook: ICPTelBook}}/>
-                {/* <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
+                           style: {
+                               height: 50
+                           }
+                       }}
+                       lazy={false}>
+
+            <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
+                tabBarLabel: '메뉴',
+                tabBarIcon: ({color, size}) => (
+                    <FontAwesomeIcon icon={faHome} color={color} size={26}/>
+                ),
+            }}/>
+            <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
+                tabBarLabel: '검색',
+                tabBarIcon: ({color, size}) => (
+                    <FontAwesomeIcon icon={faSearch} color={color} size={26}/>
+                ),
+            }} initialParams={{telBook: ICPTelBook}}/>
+            <Tab.Screen name="OrganizationScreen" component={OrganizationScreen} options={{
+                tabBarLabel: '조직도',
+                tabBarIcon: ({color, size}) => (
+                    <FontAwesomeIcon icon={faSitemap} color={color} size={26}/>
+                ),
+            }} initialParams={{telBook: ICPTelBook}}/>
+            {/* <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} options={{
               tabBarLabel: '즐겨찾기',
               tabBarIcon: ({ color, size }) => (
                 <FontAwesomeIcon icon={faStar}  color={color} size={26} />
               ),
             }} /> */}
-            </Tab.Navigator>
+        </Tab.Navigator>
     );
 }
 

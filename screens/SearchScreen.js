@@ -4,10 +4,15 @@ import {TextInput, TouchableOpacity} from "react-native-gesture-handler";
 import {findNameinJSON, findFullnameinJSON, departNameFromFullName} from '../util';
 import NameCard from "./componenets/NameCard";
 import {SafeAreaView} from "react-native-safe-area-context";
-import { RootSiblingParent } from 'react-native-root-siblings';
+import {RootSiblingParent} from 'react-native-root-siblings';
 import Toast from 'react-native-root-toast';
 
 const {height, width} = Dimensions.get("window");
+const naviBarHeight = 50;
+const barHeight = 5
+const inputHeight = 55
+const inputMargin = 5
+const listHeight = height - inputHeight - naviBarHeight - barHeight - inputMargin * 2;
 
 export default class SearchScreen extends Component {
 
@@ -17,35 +22,37 @@ export default class SearchScreen extends Component {
             searchText: "",
             telBook: this.props.route.params.telBook,
             visible: false,
-            bSearch:true,
+            bSearch: true,
             nameCards: []
         }
     };
 
     _focus = () => {
-        console.log("_focus");
+        // console.log("_focus");
         // console.log(this.state.searchText);
         // console.log(this.props.route.params.searchText);
         // this.setState({searchText:this.props.route.params.searchText});
-        console.log("1 : " + this.state.searchText);
-        console.log("2 : " + this.props.route.params.searchText);
-        console.log("3 : " + this.props);
+        // console.log("1 : " + this.state.searchText);
+        // console.log("2 : " + this.props.route.params.searchText);
 
-        if(!this.state.bSearch){
-            this.setState({bSearch:true});
+        if (!this.state.bSearch) {
+            this.setState({bSearch: true});
             return;
         }
-        if(this.props.route.params.searchText === this.state.searchText) return;
+        if (this.props.route.params.searchText === this.state.searchText) return;
         this._controlSearch(this.props.route.params.searchText);
         this._search(this.props.route.params.searchText);
     }
 
     _tabPress = () => {
-        console.log('tabPress');
-        this.setState({bSearch:false});
+        // console.log('tabPress');
+        this.setState({bSearch: false});
     }
 
     componentDidMount() {
+
+        // console.log(listHeight);
+
         this.props.navigation.addListener('focus', this._focus);
         this.props.navigation.addListener('tabPress', this._tabPress);
         setTimeout(() => this.setState({
@@ -82,36 +89,36 @@ export default class SearchScreen extends Component {
             <SafeAreaView>
 
                 <RootSiblingParent>
-                <View style={styles.row}>
-                    <TouchableOpacity onPress={this._linkHome}>
-                        <Image style={styles.logo} source={require('../assets/logo.png')}/>
-                    </TouchableOpacity>
-                    <TextInput style={styles.input} placeholder={"업무검색(예:경무)"}
-                               onChangeText={this._controlSearch}
-                               onSubmitEditing={this._search}
-                               value={this.state.searchText}
-                    />
-
-                </View>
-                <ScrollView contentContainerStyle style={styles.scrollView}>
-                    {nameCards.map(nameCard => (
-                        <NameCard
-                            key={nameCard.id}
-                            id={nameCard.id}
-                            jobname={nameCard.jobname}
-                            departname={nameCard.departname}
-                            pt={nameCard.pt}
-                            rt={nameCard.rt}
-                            isFavorite={false}
+                    <View style={styles.row}>
+                        <TouchableOpacity onPress={this._linkHome}>
+                            <Image style={styles.logo} source={require('../assets/logo.png')}/>
+                        </TouchableOpacity>
+                        <TextInput style={styles.input} placeholder={"업무검색(예:경무)"}
+                                   onChangeText={this._controlSearch}
+                                   onSubmitEditing={this._search}
+                                   value={this.state.searchText}
                         />
-                    ))
-                    }
-                </ScrollView>
-                <View style={styles.container}>
-                    <View style={styles.card}>
 
                     </View>
-                </View>
+                    <ScrollView contentContainerStyle style={styles.scrollView}>
+                        {nameCards.map(nameCard => (
+                            <NameCard
+                                key={nameCard.id}
+                                id={nameCard.id}
+                                jobname={nameCard.jobname}
+                                departname={nameCard.departname}
+                                pt={nameCard.pt}
+                                rt={nameCard.rt}
+                                isFavorite={false}
+                            />
+                        ))
+                        }
+                    </ScrollView>
+                    <View style={styles.container}>
+                        <View style={styles.card}>
+
+                        </View>
+                    </View>
                 </RootSiblingParent>
             </SafeAreaView>
         );
@@ -124,8 +131,8 @@ export default class SearchScreen extends Component {
     }
     _search = (txt) => {
 
-        const searchValue = (typeof(txt)==='string')?txt:this.state.searchText;
-        console.log("3 : " + searchValue);
+        const searchValue = (typeof (txt) === 'string') ? txt : this.state.searchText;
+        // console.log("3 : " + searchValue);
         if (searchValue === undefined) return;
         if (searchValue.length === 0) return;
         this.setState({nameCards: []});
@@ -150,7 +157,7 @@ export default class SearchScreen extends Component {
                 }
             );
         }
-        console.log(listsize);
+        // console.log(listsize);
         const message = `${listsize}건이 검색되었습니다.`;
 
         const toast = Toast.show(message, {
@@ -182,73 +189,72 @@ export default class SearchScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#0054a6",
-        alignItems: "center",
-        width: width,
-        height: height
-    },
-    row: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderBottomWidth: 5,
-        borderBottomColor: "lightgray",
-    },
-    logo: {
-        height: 60,
-        width: 60
-    },
-    title: {
-        color: "white",
-        fontSize: 10,
-        marginTop: 10,
-        fontWeight: "200",
-        marginBottom: 20,
-        height: 100
-    },
-    card: {
-        backgroundColor: "blue",
-        flex: 1,
-        width: width,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        ...Platform.select({
-            ios: {
-                shadowColor: "rgb(50, 50, 50)",
-                shadowOpacity: 0.5,
-                shadowRadius: 5,
-                shadowOffset: {
-                    height: -1,
-                    width: 0
+        container: {
+            flex: 1,
+            backgroundColor: "#0054a6",
+            alignItems: "center",
+            width: width,
+            height: height
+        },
+        row: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottomWidth: 5,
+            borderBottomColor: "lightgray",
+        },
+        logo: {
+            height: 60,
+            width: 60
+        },
+        title: {
+            color: "white",
+            fontSize: 10,
+            marginTop: 10,
+            fontWeight: "200",
+            marginBottom: 20,
+            height: 100
+        },
+        card: {
+            backgroundColor: "blue",
+            flex: 1,
+            width: width,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            ...Platform.select({
+                ios: {
+                    shadowColor: "rgb(50, 50, 50)",
+                    shadowOpacity: 0.5,
+                    shadowRadius: 5,
+                    shadowOffset: {
+                        height: -1,
+                        width: 0
+                    }
+                },
+                android: {
+                    elevation: 3
                 }
-            },
-            android: {
-                elevation: 3
-            }
-        })
-    },
-    scrollView:{
-    height: height - 120,
-    // backgroundColor: 'rgba(255,255,50,0.1)'
-    },
-    input: {
-        margin: 5,
-        padding: 10,
-        borderColor: "#0054a6",
-        borderWidth: 3,
-        borderRadius: 10,
-        fontSize: 25,
-        height: 55,
-        width: width - 70,
-    },
-    image: {
+            })
+        },
+        scrollView: {
+            height: listHeight
+            // backgroundColor: 'rgba(255,255,50,0.1)'
+        },
+        input: {
+            margin: inputMargin,
+            padding: 10,
+            borderColor: "#0054a6",
+            borderWidth: 3,
+            borderRadius: 10,
+            fontSize: 25,
+            height: inputHeight,
+            width: width - 70,
+        },
+        image: {
             flex: 1,
             justifyContent: "center",
-            backgroundColor:"#ffff00"
+            backgroundColor: "#ffff00"
         },
 
     }
-
 );
