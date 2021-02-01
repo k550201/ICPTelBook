@@ -74,8 +74,8 @@ export default class TreeNode extends React.Component {
                 <View style={styles.row}>
                     {hasChild ? <TouchableOpacity onPress={this._open}>
                             {isCollapsed ?
-                                <FontAwesomeIcon icon={faFolder} size={22} color={"#ffda69"}/>
-                                : <FontAwesomeIcon icon={faFolderOpen} size={22} color={"#ffda69"}/>
+                                <FontAwesomeIcon icon={faFolder} size={21} color={"#ffda69"}/>
+                                : <FontAwesomeIcon icon={faFolderOpen} size={21} color={"#ffda69"}/>
                             }
                         </TouchableOpacity>
                         : null
@@ -83,12 +83,12 @@ export default class TreeNode extends React.Component {
                     <TouchableOpacity style={styles.staff} onPress={hasChild ? this._open : this._call}>
                         <View style={styles.row}>
                             {!hasChild ?
-                                <FontAwesomeIcon color={"#0054a6"} icon={faUser} size={22}/> : null
+                                <FontAwesomeIcon color={"#0054a6"} icon={faUser} size={21}/> : null
                             }
                             <Text style={styles.name}> {node.NAME}</Text>
 
                             {!hasChild ?
-                                (<Text style={styles.tel}><FontAwesomeIcon icon={faPhoneAlt} color={"gray"} size={16}/>️
+                                (<Text style={styles.tel}><FontAwesomeIcon icon={faPhoneAlt} color={"gray"} size={15}/>️
                                     : {node.PT}</Text>)
                                 : null
                             }
@@ -119,9 +119,10 @@ const styles = StyleSheet.create({
         // borderBottomWidth: StyleSheet.hairlineWidth,
         // justifyContent: "space-between",
         flexWrap: "nowrap",
-        paddingLeft: 16,
+        paddingLeft: 14,
+        paddingRight: 0,
         paddingTop: 1,
-        paddingBottom: 2
+        paddingBottom: 1
 
     },
     row: {
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     name: {
-        fontSize: 23,
+        fontSize: 22,
         fontWeight: "normal",
         alignItems: "center",
         flexGrow: 1
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
 
     },
     tel: {
-        fontSize: 20,
+        fontSize: 18,
         alignItems: "center",
         marginRight: 10
 

@@ -7,7 +7,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.2",
+    "version": "1.0.20200820",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "splash": {
@@ -23,7 +23,7 @@
     ],
     "ios": {
       "bundleIdentifier": "kr.go.icpolice",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.20200820",
       "supportsTablet": true
     },
     "android": {
